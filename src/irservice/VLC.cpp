@@ -3,6 +3,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <unistd.h>
 #include "Util.h"
 
 VLC::VLC()
@@ -122,7 +123,7 @@ void VLC::next()
 #elif defined(__unix__) || defined(__unix)
 	shellCmd("dbus-send --print-reply --dest=org.mpris.MediaPlayer2.vlc /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Next");
 #elif defined(__APPLE__) || defined(__MACH__)
-
+	shellCmd("/Users/sheng/bin/osxMediaKey fast");
 #endif
 }
 
@@ -133,7 +134,7 @@ void VLC::prev()
 #elif defined(__unix__) || defined(__unix)
 	shellCmd("dbus-send --print-reply --dest=org.mpris.MediaPlayer2.vlc /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Previous");
 #elif defined(__APPLE__) || defined(__MACH__)
-
+	shellCmd("/Users/sheng/bin/osxMediaKey rewind");
 #endif
 }
 
@@ -145,7 +146,9 @@ void VLC::jumpForward()
 	shellCmd("xdotool search --name 'VLC media player' windowactivate");
 	shellCmd("xdotool key ctrl+Right");
 #elif defined(__APPLE__) || defined(__MACH__)
-
+	shellCmd("osascript -e 'tell application \"VLC\" to activate'");
+	usleep(50*1000);
+	shellCmd("osascript -e 'tell application \"System Events\" to key code 124 using {command down, option down}'"); // Cmd+Option+RightArrow
 #endif
 }
 
@@ -157,7 +160,9 @@ void VLC::jumpBackward()
 	shellCmd("xdotool search --name 'VLC media player' windowactivate");
 	shellCmd("xdotool key ctrl+Left");
 #elif defined(__APPLE__) || defined(__MACH__)
-
+	shellCmd("osascript -e 'tell application \"VLC\" to activate'");
+	usleep(50*1000);
+	shellCmd("osascript -e 'tell application \"System Events\" to key code 123 using {command down, option down}'"); // Cmd+Option+LeftArrow
 #endif
 }
 
