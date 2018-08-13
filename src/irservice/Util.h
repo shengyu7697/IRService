@@ -3,7 +3,7 @@
 
 #include <string>
 
-void shellCmd(const char *cmd);
+bool shellCmd(const char *cmd);
 void getSystemTime(std::string &timeString);
 long getSystemTime();
 void sleep_ms(int milliseconds);

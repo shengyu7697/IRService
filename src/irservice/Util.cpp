@@ -1,5 +1,6 @@
 #include "Util.h"
 
+#include <stdio.h>
 #include <ctime>
 #include <chrono>
 #include <thread>
@@ -7,20 +8,24 @@
 using namespace std;
 using namespace std::chrono;
 
-#if defined(__WIN32__) || defined(_WIN32)
-void shellCmd(const char *cmd) {
-	printf("ShellCmd: %s\n", cmd);
-}
-#else
-void shellCmd(const char *cmd) {
+bool shellCmd(const char *cmd) {
 //	printf("ShellCmd: %s\n", cmd);
+#if defined(__WIN32__) || defined(_WIN32)
+	FILE *pp;
+	if ((pp = _popen(cmd, "r")) == NULL) {
+		return false;
+	}
+	_pclose(pp);
+	return true;
+#else
 	FILE *pp;
 	if ((pp = popen(cmd, "r")) == NULL) {
-		return;
+		return false;
 	}
 	pclose(pp);
-}
+	return true;
 #endif
+}
 
 void getSystemTime(std::string &timeString)
 {
