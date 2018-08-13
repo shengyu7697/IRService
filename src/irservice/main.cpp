@@ -1,4 +1,8 @@
+#if defined(__WIN32__) || defined(_WIN32)
+//#include "WinSerial.h"
+#else
 #include "UnixSerial.h"
+#endif
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -13,7 +17,11 @@ int main()
 {
 	printGitSHA1();
 
-    unixSerial();
+#if defined(__WIN32__) || defined(_WIN32)
+	//winSerial();
+#else
+	unixSerial();
+#endif
 
     return 0;
 }

@@ -1,7 +1,5 @@
 set(FILES
 	main.cpp
-	UnixSerial.h
-	UnixSerial.cpp
 	Util.h
 	Util.cpp
 	Sound.h
@@ -13,6 +11,14 @@ set(FILES
 	MPlayerX.h
 	MPlayerX.cpp
 )
+
+if(MSVC)
+else()
+list(APPEND FILES
+	UnixSerial.h
+	UnixSerial.cpp
+)
+endif()
 
 add_executable(irservice ${FILES})
 target_include_directories(irservice PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/../../thirdparty/iniparser")
