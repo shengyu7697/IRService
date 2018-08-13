@@ -6,5 +6,6 @@
 void shellCmd(const char *cmd);
 void getSystemTime(std::string &timeString);
 long getSystemTime();
+void sleep_ms(int milliseconds);
 
 #endif /* __UTIL_H__ */

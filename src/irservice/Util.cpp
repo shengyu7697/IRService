@@ -2,6 +2,7 @@
 
 #include <ctime>
 #include <chrono>
+#include <thread>
 
 using namespace std;
 using namespace std::chrono;
@@ -41,4 +42,9 @@ long getSystemTime()
 {
     duration<long long, milli> ms = duration_cast< duration<long long, milli> >(system_clock::now().time_since_epoch());
     return ms.count();
+}
+
+void sleep_ms(int milliseconds)
+{
+    std::this_thread::sleep_for(std::chrono::milliseconds(milliseconds));
 }

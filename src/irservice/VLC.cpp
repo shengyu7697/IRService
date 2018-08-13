@@ -3,7 +3,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <unistd.h>
 #include "Util.h"
 
 VLC::VLC()
@@ -147,7 +146,7 @@ void VLC::jumpForward()
 	shellCmd("xdotool key ctrl+Right");
 #elif defined(__APPLE__) || defined(__MACH__)
 	shellCmd("osascript -e 'tell application \"VLC\" to activate'");
-	usleep(50*1000);
+	sleep_ms(50);
 	shellCmd("osascript -e 'tell application \"System Events\" to key code 124 using {command down, option down}'"); // Cmd+Option+RightArrow
 #endif
 }
@@ -161,7 +160,7 @@ void VLC::jumpBackward()
 	shellCmd("xdotool key ctrl+Left");
 #elif defined(__APPLE__) || defined(__MACH__)
 	shellCmd("osascript -e 'tell application \"VLC\" to activate'");
-	usleep(50*1000);
+	sleep_ms(50);
 	shellCmd("osascript -e 'tell application \"System Events\" to key code 123 using {command down, option down}'"); // Cmd+Option+LeftArrow
 #endif
 }
