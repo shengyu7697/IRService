@@ -85,27 +85,20 @@ void set_mincount(int fd, int mcount)
         printf("Error tcsetattr: %s\n", strerror(errno));
 }
 
-int unixSerial(const std::string &settingName)
+int unixSerial(const std::string &settingName, const std::string &portName)
 {
+    printf("load %s file ...\n", settingName.c_str());
     if (!loadSetting(settingName, keymap)) {
         printf("can't load %s file\n", settingName.c_str());
         return -1;
     }
 
-#if defined(__unix__) || defined(__unix)
-    const char *portname = "/dev/ttyACM0"; // Arduino Uno
-    //const char *portname = "/dev/ttyUSB0"; // Arduino Nano
-#elif defined(__APPLE__) || defined(__MACH__)
-    //const char *portname = "/dev/cu.usbmodem1451"; // Arduino Uno
-    const char *portname = "/dev/cu.usbmodem1411"; // Arduino Uno
-    //const char *portname = "/dev/cu.wchusbserial1450"; // Arduino Nano
-#endif
+    printf("open %s ...\n", portName.c_str());
     int fd;
     int wlen;
-
-    fd = open(portname, O_RDWR | O_NOCTTY | O_SYNC);
+    fd = open(portName.c_str(), O_RDWR | O_NOCTTY | O_SYNC);
     if (fd < 0) {
-        printf("Error opening %s: %s\n", portname, strerror(errno));
+        printf("Error opening %s: %s\n", portName.c_str(), strerror(errno));
         return -1;
     }
     /*baudrate 115200, 8 bits, no parity, 1 stop bit */
@@ -157,7 +150,6 @@ int unixSerial(const std::string &settingName)
 
 bool loadSetting(const std::string &settingName, std::vector<std::string> &keymap)
 {
-    printf("load %s file...\n", settingName.c_str());
     dictionary *ini = NULL;
 
     ini = iniparser_load(settingName.c_str());
