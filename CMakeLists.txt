@@ -13,14 +13,14 @@ if(GIT_FOUND)
     exec_program(
         "git"
         ${CMAKE_CURRENT_SOURCE_DIR}
-        ARGS "rev-parse --short HEAD"
+        ARGS "-C . describe"
         OUTPUT_VARIABLE VERSION_SHA1)
 else()
     message("git not found")
     set(VERSION_SHA1 "unknown")
 endif()
-add_definitions(-DGIT_SHA1="${VERSION_SHA1}")
-message("git sha1: ${VERSION_SHA1}")
+add_definitions(-DGIT_VERSION_SHA1="${VERSION_SHA1}")
+message("version: ${VERSION_SHA1}")
 
 if(MSVC)
 else()

@@ -8,15 +8,16 @@
 #include <stdlib.h>
 #include <string>
 
-const char g_GIT_SHA1[] = GIT_SHA1;
-void printGitSHA1()
+const char gVersion[] = GIT_VERSION_SHA1;
+
+void printInfo()
 {
-    printf("git sh1 = %s\n", g_GIT_SHA1);
+    printf("version = %s\n", gVersion);
 }
 
 int main(int argc, char* argv[])
 {
-	printGitSHA1();
+	printInfo();
 
 	std::string settingName = "setting.ini";
 
