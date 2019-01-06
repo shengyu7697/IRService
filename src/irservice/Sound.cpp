@@ -10,7 +10,7 @@ void Sound::playButton()
 #elif defined(__unix__) || defined(__unix)
 	shellCmd("aplay button.wav &");
 #elif defined(__APPLE__) || defined(__MACH__)
-
+	shellCmd("afplay button.wav &");
 #endif
 }
 
@@ -26,7 +26,7 @@ void Sound::playSpotifySound()
 	// ffmpeg -i vlc.mp3 vlc.wav
 	shellCmd("aplay spotify.wav &");
 #elif defined(__APPLE__) || defined(__MACH__)
-
+	shellCmd("afplay spotify.wav &");
 #endif
 }
 
@@ -37,6 +37,6 @@ void Sound::playVLCSound()
 #elif defined(__unix__) || defined(__unix)
 	shellCmd("aplay vlc.wav &");
 #elif defined(__APPLE__) || defined(__MACH__)
-
+	shellCmd("afplay vlc.wav &");
 #endif
 }
