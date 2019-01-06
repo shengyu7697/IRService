@@ -9,10 +9,12 @@
 #include <string>
 
 const char gVersion[] = GIT_VERSION_SHA1;
+const char gBuildType[] = BUILD_TYPE;
 
 void printInfo()
 {
     printf("version = %s\n", gVersion);
+    printf("build type = %s\n", gBuildType);
 }
 
 int main(int argc, char* argv[])

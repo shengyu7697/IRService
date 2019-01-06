@@ -21,6 +21,7 @@ else()
 endif()
 add_definitions(-DGIT_VERSION_SHA1="${VERSION_SHA1}")
 message("version: ${VERSION_SHA1}")
+add_definitions(-DBUILD_TYPE="${CMAKE_BUILD_TYPE}")
 
 if(MSVC)
 else()
