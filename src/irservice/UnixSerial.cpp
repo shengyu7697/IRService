@@ -29,7 +29,7 @@ MPlayerX mplayerx;
 Sound gSound;
 std::vector<std::string> keymap;
 
-bool loadSetting(const char *ini_name, std::vector<std::string> &keymap);
+bool loadSetting(const std::string &settingName, std::vector<std::string> &keymap);
 void onSerial(char *buf);
 bool onSpotify(char *buf);
 bool onVLC(char *buf);
@@ -85,10 +85,10 @@ void set_mincount(int fd, int mcount)
         printf("Error tcsetattr: %s\n", strerror(errno));
 }
 
-int unixSerial()
+int unixSerial(const std::string &settingName)
 {
-    if (!loadSetting("setting.ini", keymap)) {
-        printf("can't load setting\n");
+    if (!loadSetting(settingName, keymap)) {
+        printf("can't load %s file\n", settingName.c_str());
         return -1;
     }
 
@@ -155,12 +155,12 @@ int unixSerial()
     } while (1);
 }
 
-bool loadSetting(const char *ini_name, std::vector<std::string> &keymap)
+bool loadSetting(const std::string &settingName, std::vector<std::string> &keymap)
 {
-    printf("load setting...\n");
+    printf("load %s file...\n", settingName.c_str());
     dictionary *ini = NULL;
 
-    ini = iniparser_load(ini_name);
+    ini = iniparser_load(settingName.c_str());
 
     if (ini == NULL)
         return false;

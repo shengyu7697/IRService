@@ -6,6 +6,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <string>
 
 const char g_GIT_SHA1[] = GIT_SHA1;
 void printGitSHA1()
@@ -13,14 +14,19 @@ void printGitSHA1()
     printf("git sh1 = %s\n", g_GIT_SHA1);
 }
 
-int main()
+int main(int argc, char* argv[])
 {
 	printGitSHA1();
+
+	std::string settingName = "setting.ini";
+
+	if (argc > 1)
+		settingName = argv[1];
 
 #if defined(__WIN32__) || defined(_WIN32)
 	//winSerial();
 #else
-	unixSerial();
+	unixSerial(settingName);
 #endif
 
     return 0;
